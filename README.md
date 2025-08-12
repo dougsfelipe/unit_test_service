@@ -1,6 +1,6 @@
 # Projeto de Validação com Pytest
 
-![CI](https://github.com/dougsfelipe/unit_tests_validator/actions/workflows/python-tests.yml/badge.svg)
+![CI]([https://github.com/dougsfelipe/unit_tests_validator/actions/workflows/python-tests.yml/badge.svg](https://github.com/dougsfelipe/unit_test_service/actions/workflows/python-tests.yml/badge.svg))
 
 Este projeto contém funções em Python com testes automatizados usando **Pytest** e integração contínua via **GitHub Actions**.
 
