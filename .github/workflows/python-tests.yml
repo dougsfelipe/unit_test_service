@@ -22,10 +22,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Rodar testes com pytest e gerar relatório de cobertura
+      - name: Rodar testes com pytest
+        env:
+          PYTHONPATH: ${{ github.workspace }}
         run: |
-          pytest --cov=app --cov-report=html --cov-report=term
-
+          pytest --cov=app --cov-report=html
+          
       - name: Publicar relatório de cobertura no GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
