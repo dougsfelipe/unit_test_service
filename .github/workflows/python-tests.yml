@@ -33,7 +33,7 @@ jobs:
       - name: Listar htmlcov para debug
         run: ls -la htmlcov
 
-      - name: Fazer upload do relatório coverage
+      - name: Upload do report.html
         uses: actions/upload-artifact@v4
         with:
           name: coverage-report
@@ -53,16 +53,21 @@ jobs:
       - name: Clonar repositório
         uses: actions/checkout@v3
 
-      - name: Download do relatório coverage
+      - name: Download do report.html
         uses: actions/download-artifact@v4
         with:
           name: coverage-report
-          path: ./report.html
+          path: ./coverage-report
 
-      - name: Publicar no GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Mover para raiz
+        run: mv coverage-report/report.html ./report.html
+
+      - name: Deploy no GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./report.html
+          publish_dir: .
           publish_branch: gh-pages
           clean: true
+
+
