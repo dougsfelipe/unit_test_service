@@ -46,7 +46,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: coverage-report
-          path: htmlcov
+          path: ./htmlcov
 
       - name: Publicar no GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
