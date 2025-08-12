@@ -1,18 +1,18 @@
-name: Testes de unidade com pytest
+name: Testes e Deploy Coverage
 
 on:
   push:
-    branches: [ master ]  # ou main
+    branches: [master]
 
 jobs:
   test:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Clonar repositório
         uses: actions/checkout@v3
 
-      - name: Instalar Python 3.11
+      - name: Configurar Python 3.11
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
@@ -22,12 +22,46 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Rodar testes com pytest e gerar relatório de cobertura
+      - name: Rodar testes com pytest e gerar relatório coverage
+        env:
+          PYTHONPATH: ${{ github.workspace }}
         run: |
-          pytest --cov=app --cov-report=html --cov-report=term
+          pytest --cov=app --cov-report=html
+          pytest --cov=app --cov-report=xml
 
-      - name: Publicar relatório de cobertura no GitHub Pages
+      - name: Listar htmlcov para debug
+        run: ls -la htmlcov
+
+      - name: Fazer upload do relatório coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: htmlcov
+
+      - name: Enviar cobertura para Coveralls
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+        run: coveralls
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar repositório
+        uses: actions/checkout@v3
+
+      - name: Download do relatório coverage
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage-report
+          path: ./htmlcov
+
+      - name: Publicar no GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./htmlcov
+          publish_branch: gh-pages
+          clean: true
