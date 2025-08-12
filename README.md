@@ -1,6 +1,17 @@
 # Projeto de Validação com Pytest
 
-![CI](https://github.com/dougsfelipe/unit_tests_validator/actions/workflows/python-tests.yml/badge.svg)
+## Status do Build
+
+![CI](https://github.com/dougsfelipe/unit_test_service/actions/workflows/python-tests.yml/badge.svg)
+
+## Cobertura de Testes
+
+[![Coverage Status](https://coveralls.io/repos/github/dougsfelipe/unit_test_service/badge.svg?branch=master)](https://coveralls.io/github/dougsfelipe/unit_test_service?branch=master)
+
+## Qualidade do Código
+
+[![CodeQL](https://github.com/dougsfelipe/unit_test_service/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/dougsfelipe/unit_test_service/security/code-scanning)
+
 
 Este projeto contém funções em Python com testes automatizados usando **Pytest** e integração contínua via **GitHub Actions**.
 

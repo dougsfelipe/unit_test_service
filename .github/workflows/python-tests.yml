@@ -29,6 +29,7 @@ jobs:
           pytest --cov=app --cov-report=html
           pytest --cov=app --cov-report=xml
 
+
       - name: Listar htmlcov para debug
         run: ls -la htmlcov
 
