@@ -2,7 +2,7 @@ name: Testes de unidade com pytest
 
 on:
   push:
-    branches: [ master ]  # ou 'main', conforme seu repositório
+    branches: [ master ]  # ou main
 
 jobs:
   test:
@@ -15,7 +15,6 @@ jobs:
       - name: Instalar Python 3.11
         uses: actions/setup-python@v4
         with:
-          # Versão do Python fixada em 3.11
           python-version: '3.11'
 
       - name: Instalar dependências
@@ -23,6 +22,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Rodar testes com pytest
+      - name: Rodar testes com pytest e gerar relatório de cobertura
         run: |
-          pytest -v
+          pytest --cov=app --cov-report=html --cov-report=term
+
+      - name: Publicar relatório de cobertura no GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./htmlcov

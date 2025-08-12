@@ -1,9 +1,28 @@
 import pytest
-from validator import Validator
+from app.validator import Validator, ServicoCorreios
+from unittest.mock import patch, Mock, MagicMock
+
 
 @pytest.fixture
 def validar():
     return Validator()
+
+def servico():
+    return ServicoCorreios()
+
+@pytest.fixture
+def mock_requests_get():
+    with patch("requests.get") as mock_get:
+        yield mock_get
+
+
+@pytest.fixture
+def mock_correios_service(self):
+    """Mock mais sofisticado do ServicoCorreios"""
+    with patch('validator.ServicoCorreios') as mock_class:
+        mock_instance = MagicMock()
+        mock_class.return_value = mock_instance
+        yield mock_instance
 
 @pytest.mark.parametrize("cpf_valido", [
     "529.982.247-25",
@@ -95,3 +114,42 @@ def test_validar_cnpj_formato_invalido(validar, cnpj_formato_invalido):
     with pytest.raises(ValueError):
         validar.validar_cnpj(cnpj_formato_invalido)
 
+def test_cep_valido_api(mock_requests_get):
+    # Simula resposta 200 e JSON sem "erro"
+    mock_response = Mock()
+    mock_response.status_code = 200
+    mock_response.json.return_value = {"cep": "12345-678"}
+    mock_requests_get.return_value = mock_response
+
+    s = servico()
+    resultado = s.validar_cep_api("12345-678")
+
+    assert resultado is True
+    mock_requests_get.assert_called_once()
+
+
+def test_cep_invalido_api(mock_requests_get):
+    mock_response = Mock()
+    mock_response.status_code = 200
+    mock_response.json.return_value = {"erro": True}  # sinaliza CEP inválido na API
+    mock_requests_get.return_value = mock_response
+
+    s = servico()
+    resultado = s.validar_cep_api("00000-000")  # CEP qualquer inválido
+    print(resultado)
+
+    assert resultado is False
+    mock_requests_get.assert_called_once()
+
+def test_cep_api_excecao(mock_requests_get):
+    # Simula exceção ao chamar requests.get
+    mock_requests_get.side_effect = Exception("Erro na requisição")
+
+    s = servico()
+    resultado = s.validar_cep_api("99999-999")  # CEP qualquer
+
+    print(resultado)
+
+    # Espera que o método trate a exceção e retorne False
+    assert resultado is False
+    mock_requests_get.assert_called_once()
