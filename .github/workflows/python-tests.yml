@@ -45,8 +45,8 @@ jobs:
       - name: Clonar repositório
         uses: actions/checkout@v3
 
-      - name: Fazer upload do relatório coverage
-        uses: actions/upload-artifact@v4
+      - name: Download do relatório coverage
+        uses: actions/download-artifact@v4
         with:
           name: coverage-report
           path: ./htmlcov
