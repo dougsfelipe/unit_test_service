@@ -27,6 +27,9 @@ jobs:
           PYTHONPATH: ${{ github.workspace }}
         run: |
           pytest --cov=app --cov-report=html
+
+      - name: Verificar conteúdo da pasta htmlcov
+        run: ls -la htmlcov
           
       - name: Publicar relatório de cobertura no GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
