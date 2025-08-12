@@ -31,10 +31,9 @@ jobs:
       - name: Verificar conteúdo da pasta htmlcov
         run: ls -la htmlcov
           
-      - name: Publicar relatório de cobertura no GitHub Pages
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./htmlcov
-            # muda para 'master' para publicar direto na master
-          publish_branch: master  
+
