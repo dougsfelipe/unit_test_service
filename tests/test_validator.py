@@ -79,7 +79,7 @@ def test_validar_cep_invalido(cep_invalido, validar):
 
 def test_validar_cep_formato_invalido(validar, cep_formato_invalido):
     with pytest.raises(ValueError):
-        validar.validar_cpf(cep_formato_invalido)
+        validar.validar_cep(cep_formato_invalido)
 
 
 
