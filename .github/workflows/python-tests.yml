@@ -1,13 +1,13 @@
 name: Testes e Deploy Coverage
 
+on:
+  push:
+    branches: [master]
+
 permissions:
   contents: read
   pages: write
   id-token: write
-
-on:
-  push:
-    branches: [master]
 
 jobs:
   test:
@@ -39,9 +39,14 @@ jobs:
         run: ls -la htmlcov
 
       - name: Upload artifact report
-        uses: actions/upload-pages-artifact@v3
+        run: |
+          mkdir public
+          cp report.html public/index.html
+
+      - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: ./public
+
 
       - name: Enviar cobertura para Coveralls
         env:
