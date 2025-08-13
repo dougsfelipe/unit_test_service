@@ -34,7 +34,6 @@ jobs:
           pytest --cov=app --cov-report=html
           pytest --cov=app --cov-report=xml
 
-
       - name: Listar htmlcov para debug
         run: ls -la htmlcov
 
@@ -47,20 +46,19 @@ jobs:
         with:
           path: ./public
 
-
       - name: Enviar cobertura para Coveralls
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
         run: coveralls
 
-deploy:
-  needs: test
-  environment:
-    name: github-pages
-    url: ${{ steps.deployment.outputs.page_url }}
-  runs-on: ubuntu-latest
-  steps:
-    - name: Deploy para GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v4
+  deploy:
+    needs: test
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy para GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
