@@ -17,10 +17,8 @@ Este projeto contém funções em Python com testes automatizados usando **Pytes
 
 - Validação de CPF
 - Validação de CEP
-- Validação de CNPJ (em breve)
-- Cálculos matemáticos (soma, subtração, divisão e multiplicação)
-- Cálculo de desconto
-- FizzBuzz com TDD
+- Validação de CEP (Com API dos correios)
+- Validação de CNPJ 
 
 ---
 
