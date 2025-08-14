@@ -6,7 +6,7 @@
 
 ## Cobertura de Testes
 
-[![Coverage Status](https://coveralls.io/repos/github/dougsfelipe/unit_test_service/badge.svg?branch=master)](https://coveralls.io/github/dougsfelipe/unit_test_service?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/dougsfelipe/unit_test_service/badge.svg)](https://coveralls.io/github/dougsfelipe/unit_test_service?branch=master)
 
 
 Este projeto contém funções em Python com testes automatizados usando **Pytest** e integração contínua via **GitHub Actions**.
