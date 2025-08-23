@@ -8,7 +8,7 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/dougsfelipe/unit_test_service/badge.svg)](https://coveralls.io/github/dougsfelipe/unit_test_service?branch=master)
 
-Voce também pode checar o HTML de report usando esse [link|https://dougsfelipe.github.io/unit_test_service/?sort=result] o qual é feito o deploy via Github Pages sempre que for feito um commit.
+Voce também pode checar o HTML de report usando esse [link](https://dougsfelipe.github.io/unit_test_service/?sort=result) o qual é feito o deploy via Github Pages sempre que for feito um commit.
 
 
 Este projeto contém funções em Python com testes automatizados usando **Pytest** e integração contínua via **GitHub Actions**.
